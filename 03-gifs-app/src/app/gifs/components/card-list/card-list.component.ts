@@ -1,0 +1,8 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+@Component({
+  selector: 'gifs-card-list',
+  templateUrl: './card-list.component.html',
+  standalone: false
+})
+export class CardListComponent { }
