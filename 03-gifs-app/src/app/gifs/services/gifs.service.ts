@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+import { Gif, SearchResponse } from '../interfaces/gifs.interfaces';
+
 // const GIPHY_API_KEY = 'dRrYS7vOByjO41Rdf1Bnkd9DisdGj7c5'
 
 @Injectable({ providedIn: 'root' })
 export class GifsService {
+
+  public gifList: Gif[] = []
 
   // La propiedad se coloca como privada y se accede a ella
   // a través de un getter, para evitar que se haga una 
@@ -45,8 +49,13 @@ export class GifsService {
       .set('q', tag)
 
     // Lo que regresa no es una promesa, es un Observable
-    this.http.get(`${this.serviceUrl}/search`, { params })
-      .subscribe(resp => console.log(resp))
+    // y además es genérico, es decir, que se le puede especificar
+    // el tipo de dato que regresa
+    this.http.get<SearchResponse>(`${this.serviceUrl}/search`, { params })
+      .subscribe(resp => {
+        this.gifList = resp.data
+        console.log({ gifs: this.gifList })
+      })
 
     /*
     // Alternativa de uso
