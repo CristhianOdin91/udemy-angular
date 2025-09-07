@@ -17,7 +17,9 @@ export class GifsService {
   private apiKey: string = 'dRrYS7vOByjO41Rdf1Bnkd9DisdGj7c5'
   private serviceUrl: string = 'https://api.giphy.com/v1/gifs'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.loadLocalStorage()
+  }
 
   get tagsHistory() {
     // Se regresa un arreglo con spread operator para
@@ -40,6 +42,19 @@ export class GifsService {
 
   private saveLocalStorage(): void {
     localStorage.setItem('history', JSON.stringify(this._tagsHistory))
+  }
+
+  private loadLocalStorage(): void {
+    if (!localStorage.getItem('history')) {
+      return
+    }
+
+    this._tagsHistory = JSON.parse(localStorage.getItem('history')!)
+    
+    if (this._tagsHistory.length) {
+      const [lastTag] = this._tagsHistory
+      this.searchTag(lastTag)
+    }
   }
 
   searchTag(tag: string): void{
