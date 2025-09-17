@@ -1,1 +1,25 @@
-<p>lazy-image works!</p>,
+<div class="d-flex justify-content-center">
+  <!--
+    El evento (load) de la imagen se dispara cuando la imagen ha sido
+    completamente cargada en el navegador
+
+    La propiedad [hidden] oculta el elemento en el DOM si la expresión
+    que se le pasa es verdadera
+  -->
+  <img
+    [src]="url"
+    [alt]="alt"
+    class="card-img-top"
+    (load)="onLoad()"
+    [hidden]="!hasLoaded"
+  />
+
+  <img
+    src="assets/loader.svg"
+    alt="Loading..."
+    height="35"
+    width="35"
+    class="mt-3"
+    [hidden]="hasLoaded"
+  />
+</div>
