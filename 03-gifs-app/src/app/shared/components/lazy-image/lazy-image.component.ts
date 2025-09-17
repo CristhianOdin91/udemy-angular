@@ -24,7 +24,13 @@ export class LazyImageComponent {
     return this._hasLoaded;
   }
   
-  onLoad() {
+  onLoad() {  
+    setTimeout(() => {
+      this.addAnimation();
+    }, 500);
+  }
+
+  private addAnimation() {
     this._hasLoaded = true;
   }
 }
